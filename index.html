@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ForgeX</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+       
+        :root {
+            --bg: #0a0a0a;
+            --card: #141414;
+            --text: #ffffff;
+            --subtext: #a0a0a0;
+            --accent: #ff6600; /* Code Forge Orange */
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        
+        .content-wrapper {
+            flex: 1; 
+            padding: 20px;
+        }
+
+        
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            width: 100px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 10px rgba(255, 102, 0, 0.5));
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .highlight { color: var(--accent); }
+
+        .description {
+            color: var(--subtext);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent);
+        }
+
+      
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1400px;
+            margin: 50px auto;
+        }
+
+        
+        .card {
+            background: var(--card);
+            border: 1px solid #333;
+            border-radius: 15px;
+            padding: 30px 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-color: var(--accent);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent);
+        }
+
+        .img-box {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            padding: 4px;
+            border: 2px solid var(--accent);
+            background: var(--bg);
+        }
+
+        img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+        h3 { margin: 10px 0 5px; font-size: 1.4rem; color: var(--text); }
+        .user { display: block; color: var(--accent); font-size: 0.9rem; margin-bottom: 15px; font-weight: bold; }
+        .thought { font-style: italic; color: var(--subtext); font-size: 0.95rem; margin-bottom: 25px; min-height: 40px; }
+
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            color: var(--text);
+            background: transparent;
+            border: 1px solid var(--subtext);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 0 15px rgba(255, 102, 0, 0.4); }
+
+        
+        footer {
+            background-color: #050505;
+            border-top: 1px solid #222;
+            padding: 10px 10px;
+            text-align: center;
+            margin-top: auto; /* Ensures footer stays at bottom */
+        }
+
+        .social-links {
+            margin-bottom: 1px;
+        }
+
+        .social-icon {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 25px;
+            height: 25px;
+            background: #1a1a1a;
+            color: var(--text);
+            border-radius: 50%;
+            margin: 0 10px;
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid #333;
+        }
+
+        .social-icon:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 102, 0, 0.3);
+        }
+
+        .footer-text {
+            color: var(--subtext);
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-text span {
+            color: var(--accent);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="content-wrapper">
+        <header>
+            <img src="logo.png" alt="Code Forge Logo" class="logo">
+            
+            <h1>Forge<span class="highlight">X</span> Week</h1>
+            
+            <div class="description">
+                Welcome to the <strong>Official ForgeX Roster</strong>. 
+                This page is built by the community, for the community. 
+                Every card below represents a student who has successfully learned 
+                <strong>Git & GitHub</strong> basics and made their first open-source contribution.
+                
+            </div>
+        </header>
+
+        <div class="grid" id="card-grid"></div>
+    </div>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://www.instagram.com/puneettiwari368?igsh=MXFkbGI5cG8wNHdvNA==" target="_blank" class="social-icon">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/puneet-tiwari-0075952a6/" target="_blank" class="social-icon">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/puneet426" target="_blank" class="social-icon">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+        <p class="footer-text">
+            Developed by <span>Puneet Tiwari</span> 
+        </p>
+    </footer>
+
+    <script src="data.js"></script>
+
+    <script>
+        const grid = document.getElementById('card-grid');
+
+        if (typeof students !== 'undefined') {
+            students.forEach(student => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="img-box">
+                        <img src="https://github.com/${student.username}.png" onerror="this.src='https://github.com/github.png'">
+                    </div>
+                    <h3>${student.name}</h3>
+                    <span class="user">@${student.username}</span>
+                    <p class="thought">"${student.thought}"</p>
+                    <a href="https://github.com/${student.username}" target="_blank" class="btn">View Profile</a>
+                `;
+                grid.appendChild(card);
+            });
+        } else {
+            grid.innerHTML = "<p style='text-align:center; width:100%;'>No contributors yet!</p>";
+        }
+    </script>
+
+</body>
+</html>
